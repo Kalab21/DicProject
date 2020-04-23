@@ -1,25 +1,57 @@
-public class RollTheDice {
+import java.util.Random;
 
-    /*  This program simulates rolling a pair of dice.
-        The number that comes up on each die is output,
-        followed by the total of the two dice.
-    */
 
-    public static void main(String[] args) {
+public class RollTheDice
+{
+    private int myRollCount;
+    private int mySides;
+    private Random myRandGen;
 
-        int die1;   // The number on the first die.
-        int die2;   // The number on the second die.
-        int roll;   // The total roll (sum of the two dice).
+    public RollTheDice()
+    {
+        this(6);
+    }
 
-        die1 = (int)(Math.random()*6) + 1;
-        die2 = (int)(Math.random()*6) + 1;
-        roll = die1 + die2;
+    public RollTheDice(int sides)
+    {
+        myRollCount = 1;
+        mySides = sides;
+        myRandGen = new Random();
+    }
 
-        System.out.println("The first die comes up " + die1);
-        System.out.println("The second die comes up " + die2);
-        System.out.println("Your total roll is " + roll);
+    public int roll()
+    {
+        myRollCount++;
+        return myRandGen.nextInt(mySides) + 1;
+    }
 
-    }  // end main()
+    public int numSides()
+    {
+        return mySides;
+    }
 
-}  // end class
 
+    public int numRolls()
+    {
+        return myRollCount;
+    }
+
+    public String toString()
+    {
+        return "# sides: " + numSides() + " # rolls: " + numRolls();
+    }
+    int die1;   // The number on the first die.
+    int die2;   // The number on the second die.
+    int roll;   // The total roll (sum of the two dice).
+
+    public static void main(String[] args)
+    {
+        RollTheDice die = new RollTheDice();
+
+        for(int k = 0; k < 100; k++)
+        {
+            int roll = die.roll();
+            System.out.println("roll " + die.numRolls() + ": " + roll);
+        }
+    }
+}
